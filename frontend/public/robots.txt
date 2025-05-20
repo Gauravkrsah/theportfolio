@@ -1,0 +1,36 @@
+# www.robotstxt.org
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin paths
+Disallow: /admin/
+Disallow: /admin/*
+
+# Special rules for specific bots
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+
+User-agent: Slurp
+Allow: /
+Disallow: /admin/
+
+# Sitemap locations
+Sitemap: https://gauravsah.com.np/sitemap.xml
+Sitemap: https://gauravsah.com.np/image-sitemap.xml
+Disallow: /admin/
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml

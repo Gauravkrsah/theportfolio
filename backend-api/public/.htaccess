@@ -1,0 +1,40 @@
+# API Backend .htaccess
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # Set base according to deployment context
+  # This helps with proper handling in cPanel sub-application context
+  RewriteBase /api/
+  
+  # Support direct access to API endpoints
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.js [QSA,L]
+  
+  # Special handling for gemini-chat endpoint
+  RewriteRule ^gemini-chat$ index.js [QSA,L]
+</IfModule>
+
+# Set HTTP headers for API
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  
+  # Handle preflight OPTIONS requests
+  RewriteEngine On
+  RewriteRule ^(.*)$ $1 [E=HTTP_ORIGIN:%{HTTP:ORIGIN}]
+  RewriteRule ^(.*)$ $1 [E=HTTP_ACCESS_CONTROL_REQUEST_METHOD:%{HTTP:ACCESS-CONTROL-REQUEST-METHOD}]
+  RewriteRule ^(.*)$ $1 [E=HTTP_ACCESS_CONTROL_REQUEST_HEADERS:%{HTTP:ACCESS-CONTROL-REQUEST-HEADERS}]
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule ^(.*)$ $1 [R=200,L]
+</IfModule>
+
+# Deny access to sensitive files
+<FilesMatch "(\.env|\.env\..*|package\.json|package-lock\.json|node_modules)">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
