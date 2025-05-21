@@ -44,10 +44,11 @@ Backend built with Node.js, Express, and TypeScript.
 cd frontend
 npm install
 npm run dev
-
+```
 ### Backend
 
 ```bash
 cd backend
 npm install
 npm run dev
+```
