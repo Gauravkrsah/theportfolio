@@ -21,7 +21,7 @@ Frontend built with React, TypeScript, Vite, and Tailwind CSS.
 
 ---
 
-### ── backend-api/
+### ── backend/
 Backend built with Node.js, Express, and TypeScript.
 
 - src/
@@ -42,5 +42,12 @@ Backend built with Node.js, Express, and TypeScript.
 
 ```bash
 cd frontend
+npm install
+npm run dev
+
+### Backend
+
+```bash
+cd backend
 npm install
 npm run dev
