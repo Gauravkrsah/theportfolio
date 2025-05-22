@@ -228,9 +228,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📧 Contact
 
-Your Name - [your.email@example.com](mailto:your.email@example.com)
+Your Name - [hello@gauravsah.com.np](mailto:hello@gauravsah.com.np)
 
-Project Link: [https://github.com/yourusername/portfolio](https://github.com/yourusername/portfolio)
+Project Link: [https://github.com/Gauravkrsah/theportfolio](https://github.com/Gauravkrsah/theportfolio)
 
 ---
 
