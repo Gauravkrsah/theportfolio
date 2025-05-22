@@ -20,15 +20,15 @@ import {
 } from "firebase/firestore";
 import { BlogPost, Content, OtherWork, Project, Video } from "../models";
 
-// Firebase configuration
+// Firebase configuration - using environment variables for security
 const firebaseConfig = {
-  apiKey: "AIzaSyBQNSx97VV8Dcln1w8AjDobyXyyG00FvBU",
-  authDomain: "portfolio-2be29.firebaseapp.com",
-  projectId: "portfolio-2be29",
-  storageBucket: "portfolio-2be29.firebasestorage.app",
-  messagingSenderId: "859700584283",
-  appId: "1:859700584283:web:4a9445abfcdb9c450a447e",
-  measurementId: "G-NEYXC93WCC"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase

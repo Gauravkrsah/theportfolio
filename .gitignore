@@ -14,8 +14,12 @@ node_modules
 
 # Environment variables
 .env
-.env.*
+.env.local
+.env.development
+.env.production
+.env.test
 !.env.example
+!.env.*.example
 
 # Build outputs
 # dist  <-- Comment this out or remove it if it exists
@@ -43,12 +47,6 @@ __snapshots__
 *.njsproj
 *.sln
 *.sw?
-
-# Environment variables
-.env
-.env.*
-!.env.example
-!.env.*.example
 
 # Miscellaneous
 .cache
