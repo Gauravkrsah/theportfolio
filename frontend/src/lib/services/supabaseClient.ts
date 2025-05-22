@@ -1,5 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
+// Define the extended window interface
+declare global {
+  interface Window {
+    supabaseLogged?: boolean;
+  }
+}
+
 // Initialize Supabase client
 // Database connection details
 const SUPABASE_URL = import.meta.env.VITE_NEXT_PUBLIC_SUPABASE_URL;
@@ -15,8 +22,13 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   console.error('Missing Supabase credentials in environment variables');
 }
 
+// Create clients only once and export them
+// Using a singleton pattern to avoid creating multiple instances
+let _supabase: any = null;
+let _adminSupabase: any = null;
+
 // Create a client with the anon key for public access
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+export const supabase = _supabase || (_supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
@@ -29,11 +41,11 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       'x-application-name': 'portfolio-app',
     },
   },
-});
+}));
 
 // Create a special admin client that uses the same anon key
 // since the service role key is not working
-export const adminSupabase = createClient(
+export const adminSupabase = _adminSupabase || (_adminSupabase = createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY, // Using anon key instead of service key
   {
@@ -49,14 +61,17 @@ export const adminSupabase = createClient(
       },
     },
   }
-);
+));
 
-// Log the initialization of clients for debugging
-console.log('Supabase clients initialized:', {
-  url: SUPABASE_URL,
-  anonKeyLength: SUPABASE_ANON_KEY?.length || 0,
-  usingAnonKeyForAdmin: true
-});
+// Log the initialization of clients for debugging - only do this once
+if (typeof window !== 'undefined' && !window.supabaseLogged) {
+  console.log('Supabase clients initialized:', {
+    url: SUPABASE_URL,
+    anonKeyLength: SUPABASE_ANON_KEY?.length || 0,
+    usingAnonKeyForAdmin: true
+  });
+  window.supabaseLogged = true;
+}
 
 // Type definitions for our database tables
 export type Project = {
